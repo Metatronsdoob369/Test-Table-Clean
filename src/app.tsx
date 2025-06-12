@@ -7,11 +7,19 @@ const App = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
+    const apiKey = import.meta.env.VITE_API_KEY || '';
+    setResponse('');
+    if (!apiKey) {
+      setResponse('OpenAI API key is missing.');
+      setLoading(false);
+      return;
+    }
+
     const res = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`
+        Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
