@@ -29,6 +29,7 @@ const App = () => {
 
     const data = await res.json();
     setResponse(data.choices?.[0]?.message?.content || 'No response');
+    setInput ('')
     setLoading(false);
   };
 
